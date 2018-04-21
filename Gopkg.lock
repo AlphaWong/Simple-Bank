@@ -10,12 +10,19 @@
     "context/param",
     "grace",
     "logs",
+    "orm",
     "session",
     "toolbox",
     "utils"
   ]
   revision = "bf5c5626ab429e66d88602e1ab1ab5fbf4629a01"
   version = "v1.9.2"
+
+[[projects]]
+  name = "github.com/go-sql-driver/mysql"
+  packages = ["."]
+  revision = "a0583e0143b1624142adab07e0e97fe106d99561"
+  version = "v1.3"
 
 [[projects]]
   branch = "master"
@@ -49,9 +56,18 @@
   revision = "9e8dc3f972df6c8fcc0375ef492c24d0bb204857"
   version = "1.6.3"
 
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/crypto"
+  packages = [
+    "bcrypt",
+    "blowfish"
+  ]
+  revision = "e73bf333ef8920dbb52ad18d4bd38ad9d9bc76d7"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "9e242ef2da883faa526d0301106c1de8202a8b14eecebf2470863a2e60ea195b"
+  inputs-digest = "248176a91b1504b091e115efede6283ade521de085403b88976e17aa388af259"
   solver-name = "gps-cdcl"
   solver-version = 1

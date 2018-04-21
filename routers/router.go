@@ -9,22 +9,16 @@ package routers
 
 import (
 	"gitlab.com/Simple-Bank/controllers"
+	"gitlab.com/Simple-Bank/utils"
 
 	"github.com/astaxie/beego"
 )
 
 func init() {
-	ns := beego.NewNamespace("/v1",
-		beego.NSNamespace("/object",
-			beego.NSInclude(
-				&controllers.ObjectController{},
-			),
-		),
-		beego.NSNamespace("/user",
-			beego.NSInclude(
-				&controllers.UserController{},
-			),
-		),
-	)
-	beego.AddNamespace(ns)
+	initDB()
+	beego.Include(&controllers.AccountController{})
+}
+
+func initDB() {
+	utils.InitDB()
 }
