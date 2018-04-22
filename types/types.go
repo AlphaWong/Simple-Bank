@@ -21,11 +21,11 @@ type (
 
 	Transaction struct {
 		Id       int64     `json:"id" orm:"auto"`
-		Sender   *Account  `json:"sender" orm:"rel(fk)"`
-		Receiver *Account  `json:"receiver" orm:"null;rel(fk)"`
+		Account  *Account  `json:"account" orm:"rel(fk)"`
 		Type     string    `json:"type"`
 		Currency string    `json:"currency"`
 		Amount   float64   `json:"amount"`
+		Remark   string    `json:"remark"`
 		Created  time.Time `orm:"auto_now_add;type(datetime)"`
 		Updated  time.Time `orm:"auto_now;type(datetime)"`
 	}

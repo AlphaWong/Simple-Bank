@@ -9,6 +9,14 @@ func init() {
 
 	beego.GlobalControllerRouter["gitlab.com/Simple-Bank/controllers:AccountController"] = append(beego.GlobalControllerRouter["gitlab.com/Simple-Bank/controllers:AccountController"],
 		beego.ControllerComments{
+			Method: "Send",
+			Router: `/v1/accounts/:from/send/:to`,
+			AllowHTTPMethods: []string{"post"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["gitlab.com/Simple-Bank/controllers:AccountController"] = append(beego.GlobalControllerRouter["gitlab.com/Simple-Bank/controllers:AccountController"],
+		beego.ControllerComments{
 			Method: "Balance",
 			Router: `/v1/accounts/:id/balance`,
 			AllowHTTPMethods: []string{"get"},

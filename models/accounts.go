@@ -2,6 +2,9 @@ package models
 
 import (
 	"errors"
+	"net/http"
+
+	"github.com/astaxie/beego/orm"
 
 	"gitlab.com/Simple-Bank/types"
 	"gitlab.com/Simple-Bank/utils"
@@ -30,12 +33,15 @@ func (*Account) Get(id int64) (*types.Account, error) {
 	account.Id = id
 
 	err := utils.OrmInstance.Read(account)
+	if orm.ErrNoRows == err {
+		return nil, errors.New(utils.ErrorMessageAccountNotFound)
+	}
 	if nil != err {
 		return nil, err
 	}
 
 	if !account.Active {
-		return nil, errors.New("Account is inactve")
+		return nil, errors.New(utils.ErrorMessageAccountDeactivate)
 	}
 	return account, nil
 }
@@ -46,9 +52,20 @@ func (*Account) Update(account *types.Account) (int64, error) {
 
 func (*Account) GetCurrentBalance(id int64) (float64, error) {
 	var balance float64
-	err := utils.OrmInstance.Raw("SELECT SUM(amount) FROM transaction WHERE sender_id = ? ORDER BY id ASC", id).QueryRow(&balance)
+	err := utils.OrmInstance.Raw("SELECT SUM(amount) FROM transaction WHERE account_id = ? ORDER BY id ASC", id).QueryRow(&balance)
 	if nil != err {
 		return 0, err
 	}
 	return balance, nil
+}
+
+func GetPaymentApproval() (bool, error) {
+	resp, err := http.Get(utils.PaymentApprovalURI)
+	if nil != err {
+		return false, err
+	}
+	if resp.StatusCode == http.StatusOK {
+		return true, nil
+	}
+	return false, errors.New("Payment is declined by approval gateway")
 }

@@ -28,13 +28,19 @@
   branch = "master"
   name = "github.com/gopherjs/gopherjs"
   packages = ["js"]
-  revision = "fcfa75a46cca3b1ed8b2c75c4f6f0a88df581baa"
+  revision = "1daac00a5961469351b87e7ac223239c37938d2a"
 
 [[projects]]
   name = "github.com/jtolds/gls"
   packages = ["."]
   revision = "77f18212c9c7edc9bd6a33d383a7b545ce62f064"
   version = "v4.2.1"
+
+[[projects]]
+  name = "github.com/satori/go.uuid"
+  packages = ["."]
+  revision = "f58768cc1a7a7e77a3bd49e98cdd21419399b6a3"
+  version = "v1.2.0"
 
 [[projects]]
   name = "github.com/smartystreets/assertions"
@@ -68,6 +74,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "248176a91b1504b091e115efede6283ade521de085403b88976e17aa388af259"
+  inputs-digest = "629a57032d5c650628f125ce8e04df6c7a384274ee2a25d67d37944a196c4a55"
   solver-name = "gps-cdcl"
   solver-version = 1

@@ -1,9 +1,12 @@
 package models
 
 import (
+	"errors"
+
 	"gitlab.com/Simple-Bank/types"
 	"gitlab.com/Simple-Bank/utils"
 
+	"github.com/astaxie/beego/orm"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -29,6 +32,9 @@ func (*Customer) Get(id int64) (*types.Customer, error) {
 	customer.Id = id
 
 	err := utils.OrmInstance.Read(customer)
+	if orm.ErrNoRows == err {
+		return nil, errors.New(utils.ErrorMessageCustomerNotFound)
+	}
 	if nil != err {
 		return nil, err
 	}
