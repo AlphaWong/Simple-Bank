@@ -9,7 +9,7 @@ import (
 )
 
 func IsValidCurrency(transaction *types.Transaction) (bool, error) {
-	if transaction.Currency != HongKongDollar {
+	if transaction.Currency != utils.HongKongDollar {
 		return false, errors.New(utils.ErrorMessageCurrencyNotSupport)
 	}
 	return true, nil

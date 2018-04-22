@@ -16,8 +16,6 @@ const Withdraw = "WITHDRAW"
 const CrossCustomerServiceCharge = "CROSS_CUSTOMER_SERVICE_CHARGE"
 const Transfer = "TRANSFER"
 
-const HongKongDollar = "HKD"
-
 type Transaction struct{}
 
 func NewTransactionModel() *Transaction {

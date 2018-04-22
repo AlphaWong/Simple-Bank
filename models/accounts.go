@@ -67,5 +67,5 @@ func GetPaymentApproval() (bool, error) {
 	if resp.StatusCode == http.StatusOK {
 		return true, nil
 	}
-	return false, errors.New("Payment is declined by approval gateway")
+	return false, errors.New(utils.ErrorMessagePaymentApprovalGatewayDeclined)
 }
