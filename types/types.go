@@ -21,26 +21,16 @@ type (
 
 	Transaction struct {
 		Id       int64     `json:"id" orm:"auto"`
-		Amount   float64   `json:"amount"`
-		Currency string    `json:"currency"`
+		Sender   *Account  `json:"sender" orm:"rel(fk)"`
+		Receiver *Account  `json:"receiver" orm:"null;rel(fk)"`
 		Type     string    `json:"type"`
-		From     *Account  `json:"from" orm:"rel(fk)"`
-		To       *Account  `json:"to" orm:"rel(fk)"`
+		Currency string    `json:"currency"`
+		Amount   float64   `json:"amount"`
 		Created  time.Time `orm:"auto_now_add;type(datetime)"`
 		Updated  time.Time `orm:"auto_now;type(datetime)"`
 	}
 
-	Operation struct {
-		Account  *Account  `json:"account" orm:"rel(fk)"`
-		Id       int64     `json:"id" orm:"auto"`
-		Amount   float64   `json:"amount"`
-		Currency string    `json:"currency"`
-		Type     string    `json:"type"`
-		Created  time.Time `orm:"auto_now_add;type(datetime)"`
-		Updated  time.Time `orm:"auto_now;type(datetime)"`
-	}
-
-	OperationRequest struct {
+	TransactionRequest struct {
 		Currency string  `json:"currency"`
 		Amount   float64 `json:"amount"`
 	}

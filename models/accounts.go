@@ -46,7 +46,7 @@ func (*Account) Update(account *types.Account) (int64, error) {
 
 func (*Account) GetCurrentBalance(id int64) (float64, error) {
 	var balance float64
-	err := utils.OrmInstance.Raw("SELECT SUM(amount) FROM operation WHERE account_id = ? ORDER BY id ASC", id).QueryRow(&balance)
+	err := utils.OrmInstance.Raw("SELECT SUM(amount) FROM transaction WHERE sender_id = ? ORDER BY id ASC", id).QueryRow(&balance)
 	if nil != err {
 		return 0, err
 	}

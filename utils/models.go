@@ -19,7 +19,7 @@ func InitDB() {
 	orm.RegisterModel(
 		new(types.Customer),
 		new(types.Account),
-		new(types.Operation),
+		new(types.Transaction),
 	)
 	orm.RunSyncdb("default", false, true)
 	OrmInstance = orm.NewOrm()

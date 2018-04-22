@@ -16,6 +16,7 @@ import (
 
 func init() {
 	initDB()
+	utils.InitConfigSetting()
 	beego.Include(&controllers.AccountController{})
 }
 
