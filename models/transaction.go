@@ -11,11 +11,6 @@ import (
 
 var t *Transaction
 
-const Deposit = "DEPOSIT"
-const Withdraw = "WITHDRAW"
-const CrossCustomerServiceCharge = "CROSS_CUSTOMER_SERVICE_CHARGE"
-const Transfer = "TRANSFER"
-
 type Transaction struct{}
 
 func NewTransactionModel() *Transaction {
@@ -35,13 +30,13 @@ func newTransaction(account *types.Account, currency string, amount float64) *ty
 
 func NewDeposit(account *types.Account, currency string, amount float64) *types.Transaction {
 	transaction := newTransaction(account, currency, amount)
-	transaction.Type = Deposit
+	transaction.Type = utils.Deposit
 	return transaction
 }
 
 func NewWithdraw(account *types.Account, currency string, amount float64) *types.Transaction {
 	transaction := newTransaction(account, currency, amount)
-	transaction.Type = Withdraw
+	transaction.Type = utils.Withdraw
 	transaction.Amount = transaction.Amount * -1
 	return transaction
 }
@@ -49,7 +44,7 @@ func NewWithdraw(account *types.Account, currency string, amount float64) *types
 func NewCrossCustomerServiceCharge(account *types.Account, currency string, amount float64) *types.Transaction {
 	transaction := newTransaction(account, currency, amount)
 	transaction.Account = account
-	transaction.Type = CrossCustomerServiceCharge
+	transaction.Type = utils.CrossCustomerServiceCharge
 	transaction.Amount = transaction.Amount * -1
 	return transaction
 }
@@ -57,7 +52,7 @@ func NewCrossCustomerServiceCharge(account *types.Account, currency string, amou
 func NewSendTransaction(account *types.Account, currency string, amount float64) *types.Transaction {
 	transaction := newTransaction(account, currency, amount)
 	transaction.Account = account
-	transaction.Type = Transfer
+	transaction.Type = utils.Transfer
 	transaction.Amount = transaction.Amount * -1
 	transaction.Remark = fmt.Sprintf("Account %v send money %v %v", account.Id, currency, amount)
 	return transaction
