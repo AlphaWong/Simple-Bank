@@ -3,10 +3,14 @@
 go test -covermode=count ./...
 ```
 ## Start minikube
+```sh
 minikube start
+```
 
 ## Set docker env
+```sh
 eval $(minikube docker-env)
+```
 
 ## Build image
 ```sh
@@ -22,7 +26,7 @@ kubectl create -f ./mysql-deployment.yaml
 kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -phello123
 ```
 ```mysql
-CREATE DATABASE `simple-bank`;
+mysql> CREATE DATABASE `simple-bank`;
 ```
 
 # Start service
