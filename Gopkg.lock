@@ -31,6 +31,12 @@
   version = "v1.3"
 
 [[projects]]
+  name = "github.com/golang/mock"
+  packages = ["gomock"]
+  revision = "c34cdb4725f4c3844d095133c6e40e448b86589b"
+  version = "v1.1.1"
+
+[[projects]]
   name = "github.com/pmezard/go-difflib"
   packages = ["difflib"]
   revision = "792786c7400a136282c1664665ae0a8db921c6c2"
@@ -43,17 +49,8 @@
   version = "v1.2.0"
 
 [[projects]]
-  name = "github.com/stretchr/objx"
-  packages = ["."]
-  revision = "facf9a85c22f48d2f52f2380e4efce1768749a89"
-  version = "v0.1"
-
-[[projects]]
   name = "github.com/stretchr/testify"
-  packages = [
-    "assert",
-    "mock"
-  ]
+  packages = ["assert"]
   revision = "12b6f73e6084dad08a7c6e575284b177ecafbc71"
   version = "v1.2.1"
 
@@ -66,9 +63,21 @@
   ]
   revision = "e73bf333ef8920dbb52ad18d4bd38ad9d9bc76d7"
 
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/net"
+  packages = ["context"]
+  revision = "5f9ae10d9af5b1c89ae6904293b14b064d4ada23"
+
+[[projects]]
+  branch = "v1"
+  name = "gopkg.in/jarcoal/httpmock.v1"
+  packages = ["."]
+  revision = "61bcb58a07522fbdf76a4cb03c57f5a52683d636"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "e14fe82f80b7e5ff8ea2c62811e7c768066b38ca3bf74cf7e108760d1da85e31"
+  inputs-digest = "e65653fae59415ccddd1e0ac79a5ba48a87541da2d8ce3cd28f685898bbc37ae"
   solver-name = "gps-cdcl"
   solver-version = 1
