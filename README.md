@@ -1,5 +1,5 @@
 [![pipeline status](https://gitlab.com/AlphaWong/Simple-Bank/badges/master/pipeline.svg)](https://gitlab.com/AlphaWong/Simple-Bank/commits/master)
-[![coverage report](https://gitlab.com/AlphaWong/Simple-Bank/badges/master/coverage.svg)](https://gitlab.com/AlphaWong/Simple-Bank/commits/master)
+[![coverage report](https://codecov.io/gl/AlphaWong/Simple-Bank/branch/master/graph/badge.svg)](https://codecov.io/gl/AlphaWong/Simple-Bank)
 
 # Test
 ```
