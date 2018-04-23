@@ -1,0 +1,24 @@
+image: golang:alpine
+
+test:
+  stage: test
+  script:
+    - apk --update add alpine-sdk bash
+    - go get -u github.com/golang/dep/cmd/dep golang.org/x/tools/cmd/godoc
+    - export GOPATH=$(dirname $CI_PROJECT_DIR)/go
+    - mkdir -p $GOPATH/src/gitlab.com
+    - cd $GOPATH/src/gitlab.com
+    - ln -sf $CI_PROJECT_DIR
+    - cd $CI_PROJECT_NAME
+    - dep ensure -v -vendor-only
+    - go fmt ./...
+    - go test -short ./... -covermode=count -coverprofile=coverage.out
+    - mkdir public
+    - go tool cover -func=coverage.out
+    - go tool cover -html=coverage.out -o public/coverage.html
+    - curl -s https://codecov.io/bash > ci.sh
+    - chmod 777 ./ci.sh
+    - ./ci.sh -t $CODECOV_TOKEN
+  artifacts:
+    paths:
+      - public
