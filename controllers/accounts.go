@@ -3,6 +3,7 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -224,6 +225,7 @@ func (this *AccountController) Send() {
 	}
 
 	if ok, err := models.IsOverDailyLimit(oneDayTransferAmount); ok {
+		log.Printf("footPrint:%v, error: %v", footPrint, err.Error())
 		utils.SendHttpError(this.Ctx.ResponseWriter, err.Error(), footPrint, http.StatusBadRequest)
 		this.StopRun()
 	}
