@@ -1,3 +1,6 @@
+[![pipeline status](https://gitlab.com/AlphaWong/Simple-Bank/badges/master/pipeline.svg)](https://gitlab.com/AlphaWong/Simple-Bank/commits/master)
+[![coverage report](https://gitlab.com/AlphaWong/Simple-Bank/badges/master/coverage.svg)](https://gitlab.com/AlphaWong/Simple-Bank/commits/master)
+
 # Test
 ```
 go test -covermode=count ./...
