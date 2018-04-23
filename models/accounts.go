@@ -2,6 +2,7 @@ package models
 
 import (
 	"errors"
+	"math"
 	"net/http"
 
 	"github.com/astaxie/beego/orm"
@@ -57,6 +58,22 @@ func (*Account) GetCurrentBalance(id int64) (float64, error) {
 		return 0, err
 	}
 	return balance, nil
+}
+
+func (*Account) GetOneDayTransferAmount(id int64) (float64, error) {
+	var balance float64
+	today := utils.GetTodayStart()
+	tmr := utils.GetTomorrowStart(today)
+	err := utils.OrmInstance.Raw(
+		"SELECT SUM(amount) FROM transaction WHERE account_id = ? AND created BETWEEN ? AND ? AND type = 'TRANSFER'",
+		id,
+		today.Format(utils.MySqlTimeFormat),
+		tmr.Format(utils.MySqlTimeFormat),
+	).QueryRow(&balance)
+	if nil != err {
+		return 0, err
+	}
+	return math.Abs(balance), nil
 }
 
 func GetPaymentApproval() (bool, error) {

@@ -3,7 +3,6 @@ package controllers
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -24,7 +23,7 @@ func (this *AccountController) Create() {
 	var customer types.Customer
 	err := json.NewDecoder(bytes.NewReader(this.Ctx.Input.RequestBody)).Decode(&customer)
 	if nil != err {
-		http.Error(this.Ctx.ResponseWriter, fmt.Sprintf("message: %v, footPrint: %v", utils.ErrorMessageInvalidJSON, footPrint), http.StatusBadRequest)
+		utils.SendHttpError(this.Ctx.ResponseWriter, utils.ErrorMessageInvalidJSON, footPrint, http.StatusBadRequest)
 		this.StopRun()
 	}
 	customerModel := models.NewCustomerModel()
@@ -215,6 +214,17 @@ func (this *AccountController) Send() {
 	receiverAccount, err := accountModel.Get(receiverAccountId)
 	if nil != err {
 		utils.SendHttpError(this.Ctx.ResponseWriter, utils.ErrorMessageReceiverAccountNotFound, footPrint, http.StatusNotFound)
+		this.StopRun()
+	}
+
+	oneDayTransferAmount, err := accountModel.GetOneDayTransferAmount(senderAccount.Id)
+	if nil != err {
+		utils.SendHttpError(this.Ctx.ResponseWriter, err.Error(), footPrint, http.StatusBadRequest)
+		this.StopRun()
+	}
+
+	if ok, err := models.IsOverDailyLimit(oneDayTransferAmount); ok {
+		utils.SendHttpError(this.Ctx.ResponseWriter, err.Error(), footPrint, http.StatusBadRequest)
 		this.StopRun()
 	}
 

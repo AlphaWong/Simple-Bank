@@ -4,6 +4,7 @@ import (
 	"testing"
 
 	"gitlab.com/Simple-Bank/types"
+	"gitlab.com/Simple-Bank/utils"
 )
 
 func TestIsValidCurrency(t *testing.T) {
@@ -143,6 +144,47 @@ func TestIsOwnBySameCustomer(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := IsOwnBySameCustomer(tt.args.senderAccount, tt.args.receiverAccount); got != tt.want {
 				t.Errorf("IsOwnBySameCustomer() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestIsOverDailyLimit(t *testing.T) {
+	utils.DailyTransferLimit = 10000
+	type args struct {
+		oneDayTransferAmount float64
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    bool
+		wantErr bool
+	}{
+		{
+			"TestIsOverDailyLimit in account exceed daily limit",
+			args{
+				float64(99999),
+			},
+			true,
+			true,
+		}, {
+			"TestIsOverDailyLimit in account below daily limit",
+			args{
+				float64(1),
+			},
+			false,
+			false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := IsOverDailyLimit(tt.args.oneDayTransferAmount)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("IsOverDailyLimit() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("IsOverDailyLimit() = %v, want %v", got, tt.want)
 			}
 		})
 	}

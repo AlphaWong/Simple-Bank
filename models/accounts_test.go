@@ -123,6 +123,26 @@ func TestAccount_GetCurrentBalanceFail(t *testing.T) {
 	assert.Equal(t, float64(0), balance)
 	assert.EqualError(t, err, "General error")
 }
+func TestAccount_GetOneDayTransferAmountFailByGeneralError(t *testing.T) {
+	mockCtrl := gomock.NewController(t)
+	defer mockCtrl.Finish()
+	mockOrmer := mocks.NewMockOrmer(mockCtrl)
+	utils.OrmInstance = mockOrmer
+	mockRawSeter := mocks.NewMockRawSeter(mockCtrl)
+	expectedBalance := float64(0)
+	today := utils.GetTodayStart()
+	tmr := utils.GetTomorrowStart(today)
+	mockRawSeter.EXPECT().QueryRow(&expectedBalance).Return(errors.New("General error")).Times(1)
+	a := &Account{}
+	mockOrmer.EXPECT().Raw("SELECT SUM(amount) FROM transaction WHERE account_id = ? AND created BETWEEN ? AND ? AND type = 'TRANSFER'",
+		int64(1),
+		today.Format("2006-01-02 00:00:00"),
+		tmr.Format("2006-01-02 00:00:00"),
+	).Return(mockRawSeter).Times(1)
+	amount, err := a.GetOneDayTransferAmount(int64(1))
+	assert.Equal(t, float64(0), amount)
+	assert.EqualError(t, err, "General error")
+}
 
 func TestGetPaymentApprovalSuccess(t *testing.T) {
 	httpmock.Activate()

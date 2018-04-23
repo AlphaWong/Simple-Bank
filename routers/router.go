@@ -15,12 +15,12 @@ import (
 )
 
 func init() {
-	initDB()
+	InitDB()
 	InitMiddleware()
 	utils.InitConfigSetting()
 	beego.Include(&controllers.AccountController{})
 }
 
-func initDB() {
+func InitDB() {
 	utils.InitDB()
 }

@@ -42,3 +42,10 @@ func IsValidTransaction(id int64, transaction *types.Transaction) (bool, error) 
 func IsOwnBySameCustomer(senderAccount, receiverAccount *types.Account) bool {
 	return senderAccount.Customer.Id == receiverAccount.Customer.Id
 }
+
+func IsOverDailyLimit(oneDayTransferAmount float64) (bool, error) {
+	if oneDayTransferAmount > utils.DailyTransferLimit {
+		return true, errors.New(utils.ErrorMessageAccountOverDailyLimit)
+	}
+	return false, nil
+}

@@ -16,7 +16,7 @@ func InitMiddleware() {
 }
 
 func AddFootPrintMiddleware() {
-	var FoodPrintMiddleware = func(ctx *context.Context) {
+	var foodPrintMiddleware = func(ctx *context.Context) {
 		footPrint := uuid.NewV4().String()
 		dump, _ := httputil.DumpRequest(ctx.Request, true)
 		log.Printf("footPrint: %s request: %v", footPrint, string(dump))
@@ -24,5 +24,5 @@ func AddFootPrintMiddleware() {
 		ctx.Request = ctx.Request.WithContext(nativeCtx)
 	}
 
-	beego.InsertFilter("/v1/*", beego.BeforeRouter, FoodPrintMiddleware)
+	beego.InsertFilter("/v1/*", beego.BeforeRouter, foodPrintMiddleware)
 }
