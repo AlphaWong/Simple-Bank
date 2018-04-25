@@ -5,10 +5,11 @@ import (
 	"log"
 	"net/http/httputil"
 
+	"gitlab.com/Simple-Bank/utils"
+
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/context"
 	uuid "github.com/satori/go.uuid"
-	"gitlab.com/Simple-Bank/utils"
 )
 
 func InitMiddleware() {
